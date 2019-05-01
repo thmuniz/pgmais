@@ -1,6 +1,7 @@
 
 
-import reqwest from 'reqwest';
+import reqwest from 'reqwest'
+import errorHandler from '../helpers/errorHandler'
 
 /**
  * 
@@ -8,33 +9,31 @@ import reqwest from 'reqwest';
  */
 export async function cleanFileData(fileContent) {
     let values = []
-    let count = 0 
-    for(let value of fileContent) {
-        if(count !== 0) {
-            let splittedValue = value.shift().split(";").filter(eachVal => eachVal !== "");
-            if(splittedValue.length > 0) {
-                let val = {
-                    name: splittedValue[0],
-                    CEP: parseInt(splittedValue[1]),
-                    CPF: parseInt(splittedValue[2])
+    await Promise.all(fileContent.map(async (value, index) => {
+        let splittedValue = value.shift().split("").filter(eachVal => eachVal !== "")
+        if(splittedValue.length > 0 && index > 0) {
+            let val = {
+                name: splittedValue[0],
+                CEP: parseInt(splittedValue[1]),
+                CPF: parseInt(splittedValue[2])
+            }
+            values.push(val)
+            try {
+                let result = await reqwest({
+                    url: `https://viacep.com.br/ws/${val.CEP}/json/`,
+                    method: 'get'
+                })
+                val.address = {
+                    district: result.bairro,
+                    street: result.logradouro,
+                    state: result.localidade
                 }
-                values.push(val);
-                try {
-                    let result = await reqwest({
-                        url: `https://viacep.com.br/ws/${val.CEP}/json/`,
-                        method: 'get'
-                    });
-                    val.address = {
-                        district: result.bairro,
-                        street: result.logradouro,
-                        state: result.localidade
-                    }
-                }catch(e) {
-                    val.address = null;
-                }
+            }catch(e) {
+                errorHandler.logger.log("info", `The address information for ${val.name} was not found with zip code ${val.CEP}.`)
+                val.address = null
             }
         }
-        count++ 
-    }
-    return values;
+    }))
+    // remove todos os clientes que possuam dados inválidos
+    return values.filter(value => value.address != null)
 }
