@@ -99,8 +99,8 @@ class GenericDAO {
      * Pardrão caso o método não seja sobrescrito na classe de herança
      */
     static get PRIMARY_KEY() {
-        return "_id";
-    };
+        return "_id"
+    }
 
 }
 

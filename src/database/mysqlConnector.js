@@ -1,20 +1,20 @@
-import mysql from 'mysql';
+import mysql from 'mysql'
 
 //Constantes para serem carregadas as credenciais de acesso ao banco de dados
-const MYSQL_DB_USER = process.env.MYSQL_DB_USER || 'root';
-const MYSQL_DB_NAME = process.env.MYSQL_DB_NAME || 'pgmais';
-const MYSQL_DB_PASSWORD = process.env.MYSQL_DB_PASSWORD || 'root';
-const MYSQL_DB_ADDRESS = process.env.MYSQL_DB_ADDRESS || 'localhost';
-const MYSQL_DB_POOL_SIZE = process.env.MYSQL_DB_POOL_SIZE || 10;
+const MYSQL_DB_USER = process.env.MYSQL_DB_USER || 'root'
+const MYSQL_DB_NAME = process.env.MYSQL_DB_NAME || 'pgmais'
+const MYSQL_DB_PASSWORD = process.env.MYSQL_DB_PASSWORD || 'root'
+const MYSQL_DB_ADDRESS = process.env.MYSQL_DB_ADDRESS || 'localhost'
+const MYSQL_DB_POOL_SIZE = process.env.MYSQL_DB_POOL_SIZE || 10
 
 (() => {
-    console.log('-------------------');
-    console.log('Connecting to MySQL');
-    console.log(`Address: ${MYSQL_DB_ADDRESS}`);
-    console.log(`User: ${MYSQL_DB_USER}`);
-    console.log(`Database: ${MYSQL_DB_NAME}`);
-    console.log('-------------------');
-}).call(this);
+    console.log('-------------------')
+    console.log('Connecting to MySQL')
+    console.log(`Address: ${MYSQL_DB_ADDRESS}`)
+    console.log(`User: ${MYSQL_DB_USER}`)
+    console.log(`Database: ${MYSQL_DB_NAME}`)
+    console.log('-------------------')
+}).call(this)
 
 class MySQLConnector {
 
@@ -50,4 +50,4 @@ class MySQLConnector {
 }
 
 //Cria o singleton para ser utilizado no wrapper
-export default new MySQLConnector();
+export default new MySQLConnector()

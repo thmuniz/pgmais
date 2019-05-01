@@ -144,4 +144,4 @@ class MySQLWrapper {
     }
 }
 
-export default MySQLWrapper;
+export default MySQLWrapper
