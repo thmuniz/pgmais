@@ -1,11 +1,11 @@
 import mysql from 'mysql'
 
 //Constantes para serem carregadas as credenciais de acesso ao banco de dados
-const MYSQL_DB_USER = process.env.MYSQL_DB_USER || 'root'
-const MYSQL_DB_NAME = process.env.MYSQL_DB_NAME || 'pgmais'
-const MYSQL_DB_PASSWORD = process.env.MYSQL_DB_PASSWORD || 'root'
-const MYSQL_DB_ADDRESS = process.env.MYSQL_DB_ADDRESS || 'localhost'
-const MYSQL_DB_POOL_SIZE = process.env.MYSQL_DB_POOL_SIZE || 10
+const MYSQL_DB_USER = process.env.MYSQL_DB_USER || 'root';
+const MYSQL_DB_NAME = process.env.MYSQL_DB_NAME || 'pgmais';
+const MYSQL_DB_PASSWORD = process.env.MYSQL_DB_PASSWORD || 'root';
+const MYSQL_DB_ADDRESS = process.env.MYSQL_DB_ADDRESS || 'localhost';
+const MYSQL_DB_POOL_SIZE = process.env.MYSQL_DB_POOL_SIZE || 10;
 
 (() => {
     console.log('-------------------')
