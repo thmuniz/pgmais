@@ -1,0 +1,41 @@
+{
+  "name": "desktop",
+  "version": "1.0.0",
+  "description": "Pg Mais NodeJS Test",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thmuniz/pgmais.git"
+  },
+  "author": "Thiago",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "express": "^4.16.4",
+    "mysql": "^2.17.1"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-syntax-async-functions": "^6.1.4",
+    "babel-plugin-transform-regenerator": "^6.1.4",
+    "babel-polyfill": "^6.1.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "babel-register": "^6.7.2",
+    "bluebird": "^3.3.4",
+    "gm": "^1.22.0",
+    "imagemagick": "^0.1.3",
+    "nodemon": "^1.9.1",
+    "request": "^2.65.0",
+    "reqwest": "^2.0.5",
+    "webpack": "^1.15.0",
+    "when": "^3.7.7",
+    "xhr2": "^0.1.3"
+  }
+}
