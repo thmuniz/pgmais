@@ -11,4 +11,9 @@ export default function execute(app){
         };
         return next()
     });
+
+    // Define todas as rotas que serão utilizadas
+        app.use('/users',
+        users
+    )
 }
