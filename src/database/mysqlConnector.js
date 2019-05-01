@@ -1,4 +1,5 @@
 import mysql from 'mysql'
+import errorHandler from '../helpers/errorHandler'
 
 //Constantes para serem carregadas as credenciais de acesso ao banco de dados
 const MYSQL_DB_USER = process.env.MYSQL_DB_USER || 'root';
@@ -35,10 +36,9 @@ class MySQLConnector {
 
     /**
      * Registra um evento de captura quando novas conexões forem abertas
-     * Console.log apenas para exibição de logs em desenvolvimeto. Já para produção é recomendado utilizar o winston para uma melhor performance
      */
     registerThreadCounter() {
-        this.internalPool.on('connection', (connection) => console.log(`New connection stablished with server on thread #${connection.threadId}`))
+        this.internalPool.on('connection', (connection) => errorHandler.logger.log('info', `New connection stablished with server on thread #${connection.threadId}`))
     }
 
    /**

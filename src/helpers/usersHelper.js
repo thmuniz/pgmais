@@ -1,21 +1,20 @@
-
-
 import reqwest from 'reqwest'
-import errorHandler from '../helpers/errorHandler'
+import errorHandler from './errorHandler'
 
 /**
- * 
+ * Monta um json com as informações do .csv
  * @param {*} fileContent - O conteúdo bruto do .csv 
  */
 export async function cleanFileData(fileContent) {
     let values = []
     await Promise.all(fileContent.map(async (value, index) => {
-        let splittedValue = value.shift().split("").filter(eachVal => eachVal !== "")
+        let splittedValue = value.shift().split(";").filter(eachVal => eachVal !== "")
         if(splittedValue.length > 0 && index > 0) {
             let val = {
                 name: splittedValue[0],
                 CEP: parseInt(splittedValue[1]),
-                CPF: parseInt(splittedValue[2])
+                CPF: parseInt(splittedValue[2]),
+                data_sent: new Date()
             }
             values.push(val)
             try {

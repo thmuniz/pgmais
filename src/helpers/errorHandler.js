@@ -16,7 +16,6 @@ class ErrorHandler {
         })
     }
     /**
-     * Receives an HTTP error and created the apropriated response code, message and logs it
      * Recebe um erro de HTTP e cria o seu respectivo código de erro, mensagem e logs
      * @return {boolean}
      */
