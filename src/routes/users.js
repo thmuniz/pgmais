@@ -26,59 +26,59 @@ const upload = multer({ storage })
  */
 router.post('/', upload.single('file'),  async (req, res) => {
     try {
-		const rows = []
+        const rows = []
         fastCsv.fromPath(req.file.path)
-		.on("data", function (eachRow) {
+        .on("data", function (eachRow) {
             rows.push(eachRow)
-		})
-			.on("end", async function () {
-                let cleanData = await cleanFileData(rows)
-                let splittedFileName = req.file.originalname.substring(0, req.file.originalname.length - 4).split("_")
-                let data = {
-                    _id: splittedFileName[1],
-                    name: splittedFileName[0].replace(/([a-z])([A-Z])/g, '$1 $2'),
-                    data_sent: new Date(),
-                    file_name: req.file.originalname,
-                    status: "upload_complete"
-                }
-                let connection
-                try {
-                    connection = await mySQLWrapper.getConnectionFromPool()
-                    await mySQLWrapper.beginTransaction(connection)
+        })
+        .on("end", async function () {
+            let cleanData = await cleanFileData(rows)
+            let splittedFileName = req.file.originalname.substring(0, req.file.originalname.length - 4).split("_")
+            let data = {
+                _id: splittedFileName[1],
+                name: splittedFileName[0].replace(/([a-z])([A-Z])/g, '$1 $2'),
+                data_sent: new Date(),
+                file_name: req.file.originalname,
+                status: "upload_complete"
+            }
+            let connection
+            try {
+                connection = await mySQLWrapper.getConnectionFromPool()
+                await mySQLWrapper.beginTransaction(connection)
 
-                    // Verifica existência do usuário para evitar duplicidade
-                    let userInsert = await User.findByID(data._id, connection)
-                    if(userInsert == null) {
-                        userInsert = await User.insert({connection, data})
-                    }
-                    await Promise.all(cleanData.map(async client => {
-                        client.users_id = userInsert.id
-                        await Client.insert({connection, data: client})
-                    }))
-                    
-                    await mySQLWrapper.commit(connection)
-                    return res.status(201).json(data)
-                } catch (e) {
-                    fs.unlinkSync(req.file.path)
-                    await mySQLWrapper.rollback(connection)
-                    errorHandler.logger.log("error", e)
+                // Verifica existência do usuário para evitar duplicidade
+                let userInsert = await User.findByID(data._id, connection)
+                if(userInsert == null) {
+                    userInsert = await User.insert({connection, data})
+                }
+                await Promise.all(cleanData.map(async client => {
+                    client.users_id = userInsert.id
+                    await Client.insert({connection, data: client})
+                }))
+
+                await mySQLWrapper.commit(connection)
+                return res.status(201).json(data)
+            } catch (e) {
+                fs.unlinkSync(req.file.path)
+                await mySQLWrapper.rollback(connection)
+                errorHandler.logger.log("error", e)
+                return errorHandler.handleError({
+                    error: {status: 500, error: `Error while inserting data: ${e}`, display: false},
+                    res: res,
+                    req: req
+                })
+            }
+        })
+            .on("error", function() {
+                fs.unlinkSync(req.file.path)
+                if(path.extname(req.file.originalname) !== ".csv") {
                     return errorHandler.handleError({
-                      error: {status: 500, error: `Error while inserting data: ${e}`, display: false},
-                      res: res,
-                      req: req
+                        error: {status: 400, error: `Invalid file extension.`, display: true},
+                        res: res,
+                        req: req
                     })
                 }
-			})
-				.on("error", function() {
-					fs.unlinkSync(req.file.path)
-					if(path.extname(req.file.originalname) !== ".csv") {
-						return errorHandler.handleError({
-							error: {status: 400, error: `Invalid file extension.`, display: true},
-							res: res,
-							req: req
-						})
-					}
-				})
+            })
     } catch (e) {
         errorHandler.logger.log("error", e)
         return errorHandler.handleError({
