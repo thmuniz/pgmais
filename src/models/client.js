@@ -47,6 +47,24 @@ class Client {
     }
 
     /**
+     * Remove um registro da tabela clients
+     * @static
+     * @param {*} {id, connection}
+     * @memberof Client
+     */
+    static async deleteByUserID({userID, connection}) {
+        try {
+            await mysqlWrapper.createTransactionalQuery({
+                query: `DELETE FROM clients WHERE users_id = ?;`,
+                params: [userID],
+                connection
+            })
+        }catch(e) {
+            throw e
+        }
+    }
+
+    /**
      *
      * Transforma o objeto client no padrão JSON
      * @static
@@ -59,12 +77,25 @@ class Client {
             _id: client._id,
             name: client.name,
             CEP: client.CEP,
+            CPF: client.CPF,
             data_sent: client.data_sent,
             address: {
                 district: client.district,
                 street: client.street,
                 state: client.state
             }
+        }
+    }
+
+    static async getUserClients(userID) {
+        try {
+            let clients = await mysqlWrapper.createQuery({
+                query: `SELECT clients.* FROM clients WHERE users_id = ?`,
+                params: [userID]
+            })
+            return clients.map(client => this.clientToJSON(client));
+        }catch(e) {
+            throw e
         }
     }
 
@@ -85,7 +116,7 @@ class Client {
             district: client.address.district,
             street: client.address.street,
             state: client.address.state,
-            users__id: client.users__id
+            users_id: client.users_id
         }
     }
 }
