@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `pgmais`.`clients` (
   `state` VARCHAR(255) NULL,
   `users_id` INT(11) NOT NULL,
   PRIMARY KEY (`_id`),
-  INDEX `fk_clients_users_idx` (`users_id` ASC) VISIBLE,
+  INDEX `fk_clients_users_idx` (`users_id` ASC) /*VISIBLE*/,
   CONSTRAINT `fk_clients_users`
     FOREIGN KEY (`users_id`)
     REFERENCES `pgmais`.`users` (`id`)
