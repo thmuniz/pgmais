@@ -2,7 +2,7 @@
 Pg Mais NodeJS Test
 
 * Remover o ```Content-type``` do ```Header```  da requisição para realizar os uploads através do Postman.
-* No Postman, escolher ```form-data```
+* No Postman, na aba ```Body```, escolher ```form-data```
 * No campo ```Key```, escolher o tipo ```File``` e selecionar o arquivo no seu diretório.
 ![Example Image](https://i.imgur.com/JbNl6ks.png)
 * Rodar os inserts do banco de dados (MySQL) contidos na pasta src/database/database.sql.
