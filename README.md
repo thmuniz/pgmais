@@ -1,7 +1,10 @@
 # PG Mais
 Pg Mais NodeJS Test
 
-* Remover o content type do header requisição para realizar os uploads.
+* Remover o ```Content-type``` do ```Header```  da requisição para realizar os uploads através do Postman.
+* No Postman, na aba ```Body```, escolher ```form-data```
+* No campo ```Key```, escolher o tipo ```File``` e selecionar o arquivo no seu diretório.
+![Example Image](https://i.imgur.com/JbNl6ks.png)
 * Rodar os inserts do banco de dados (MySQL) contidos na pasta src/database/database.sql.
 * Utilizar o Postman para realizar os testes. No body, form-data, escolha o arquivo .csv desejado.
 * A configuração de acesso ao banco de dados encontra-se em src/database/mysqlConnector.js
