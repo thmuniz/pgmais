@@ -1,6 +1,5 @@
 # pgmais
-pgmais nodejs test
+Pg Mais NodeJS Test
 
-
-remover o content type do header requisição para realizar os uploads.
-Contet-type : application/x-www-form-urlencoded
+* Remover o content type do header requisição para realizar os uploads.
+<b>Contet-type : application/x-www-form-urlencoded<b/>
