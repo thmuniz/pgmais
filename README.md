@@ -1,14 +1,15 @@
-# pgmais
+# PG Mais
 Pg Mais NodeJS Test
 
-* Remover o content type do header requisição para realizar os uploads.<br/>
+* Remover o content type do header requisição para realizar os uploads.
 * Rodar os inserts do banco de dados (MySQL) contidos na pasta src/database/database.sql.
 * Utilizar o Postman para realizar os testes. No body, form-data, escolha o arquivo .csv desejado.
 * A configuração de acesso ao banco de dados encontra-se em src/database/mysqlConnector.js
-* Clone do projeto https://github.com/pgmais/test-nodejs.git
-* Ao clonar, executar o npm i para instalação das dependências e em seguida nodemon para rodar.
-* O limite de upload foi definido no server.js para 200mb, alterar caso necessário.
-* Para executar o testes, na pasta principal do projeto, no bash, executar "cd src" ou "dir src" e rodar o comando "mocha"
+* Clone do projeto 
+```https://github.com/pgmais/test-nodejs.git```
+* Ao clonar, executar o ```npm i``` para instalação das dependências e em seguida ```nodemon``` para rodar.
+* O limite de upload foi definido no ```server.js``` para ```200mb```, alterar caso necessário.
+* Para executar o testes, na pasta principal do projeto, no bash, executar ```cd src``` ou ```dir src``` e rodar o comando ```mocha```
 
 # Desenvolvimento
 * Sistema operacional utilizado: mac/windows
@@ -25,3 +26,91 @@ Pg Mais NodeJS Test
 * Compression (melhora de performance no compressão dos JSONs para gzip)
 * Mocha, Chai, Chai-Http para testes
 
+# Documentação
+### ```POST``` /users
+__Body__
+```json
+{
+	"file": "fileName"
+} 
+```
+__Response__
+```json
+{
+    "_id": "xpto123",
+    "name": "Donald Trump",
+    "data_sent": "2019-05-02T16:39:31.162Z",
+    "file_name": "DonaldTrump_xpto123.csv",
+    "status": "upload_complete"
+}
+```
+__Response Messages__
+* ```201``` - __CREATED__
+* ```500``` - __INTERNAL ERROR__
+* ```400``` - __INVALID FILE EXTENSION__
+##
+
+### ```GET``` /users/{userId}/clients
+__Response__
+```json
+[
+    {
+        "_id": 5,
+        "name": "Client1",
+        "CEP": 80020320,
+        "CPF": 65464546,
+        "data_sent": "2019-05-02T16:39:30.000Z",
+        "address": {
+            "district": "Centro",
+            "street": "Rua Barão do Rio Branco",
+            "state": "Curitiba"
+        }
+    },
+    ...
+]
+```
+__Response Messages__
+* ```404``` - __THIS USER DOESN`T EXISTS__
+* ```200``` - __OK__
+* ```500``` - __INTERNAL ERROR__
+##
+
+### ```DELETE``` /users/{userId}
+__Response__
+```json
+{
+    "_id": "xpto123",
+    "name": "Donald Trump",
+    "data_sent": "2019-05-02T16:39:31.000Z",
+    "status": "deleted"
+}
+```
+__Response Messages__
+* ```404``` - __THIS USER DOESN`T EXISTS__
+* ```200``` - __OK__
+* ```500``` - __INTERNAL ERROR__
+##
+
+### ```PUT``` /users/{userId}
+__Body__
+```json
+{
+    "_id": "xpto123",
+    "name": "Xpto"
+}
+```
+
+__Response__
+```json
+{
+    "_id": "xpto123",
+    "name": "Xpto",
+    "data_sent": "2019-05-02T16:55:07.000Z",
+    "status": "updated_info"
+}
+```
+__Response Messages__
+* ```404``` - __THIS USER DOESN`T EXISTS__
+* ```200``` - __OK__
+* ```500``` - __INTERNAL ERROR__
+##
