@@ -7,3 +7,17 @@ Pg Mais NodeJS Test
 * A configuração de acesso ao banco de dados encontra-se em src/database/mysqlConnector.js
 * Clone do projet https://github.com/pgmais/test-nodejs.git
 * Ao clonar, executar o npm i para instalação das dependências e em seguida nodemon para rodar.
+* O limite de upload foi definido no server.js para 200mb, alterar caso necessário.
+
+# Desenvolvimento
+* Sistema operacional utilizado: mac/windows
+* Editor de texto: Visual Studio Code
+
+# Libs:
+* Babel
+* Nodemon (para desenvolvimento)
+* Winston e Xhr2 (logs)
+* Path, Multer, Fs, Fast-cvs (para leitura/gravação dos arquivos .csv)
+* Express
+* Body-parser (parse json)
+* Compression (melhora de performance no compressão dos JSONs para gzip)
