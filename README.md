@@ -28,6 +28,8 @@ Pg Mais NodeJS Test
 
 # Documentação
 ### ```POST``` /users
+#### ```Description:``` Creates a new user, upload selected file and save the clients contained in .csv file
+
 __Body__
 ```json
 {
@@ -51,6 +53,7 @@ __Response Messages__
 ##
 
 ### ```GET``` /users/{userId}/clients
+#### ```Description:``` Returns a list of clients from User
 __Response__
 ```json
 [
@@ -76,6 +79,7 @@ __Response Messages__
 ##
 
 ### ```DELETE``` /users/{userId}
+#### ```Description:``` Delete an user
 __Response__
 ```json
 {
@@ -92,6 +96,7 @@ __Response Messages__
 ##
 
 ### ```PUT``` /users/{userId}
+#### ```Description:``` Updates User's informations.
 __Body__
 ```json
 {
