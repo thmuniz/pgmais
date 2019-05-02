@@ -8,6 +8,7 @@ Pg Mais NodeJS Test
 * Clone do projeto https://github.com/pgmais/test-nodejs.git
 * Ao clonar, executar o npm i para instalação das dependências e em seguida nodemon para rodar.
 * O limite de upload foi definido no server.js para 200mb, alterar caso necessário.
+* Para executar o testes, na pasta principal do projeto, no bash, executar "cd src" ou "dir src" e rodar o comando "mocha"
 
 # Desenvolvimento
 * Sistema operacional utilizado: mac/windows
@@ -22,3 +23,5 @@ Pg Mais NodeJS Test
 * Express
 * Body-parser (parse json)
 * Compression (melhora de performance no compressão dos JSONs para gzip)
+* Mocha, Chai, Chai-Http para testes
+
